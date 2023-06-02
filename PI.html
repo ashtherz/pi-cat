@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess Pi Digits</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto Mono', monospace;
+        }
+        body {
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #container {
+            text-align: center;
+        }
+        #digit-input {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .digit {
+            margin: 0 5px;
+            display: inline-block;
+            animation: slideIn 0.3s forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        /* Placeholder for an image. Replace 'path-to-image' with the URL of your image */
+        #pusheen {
+            display: block;
+            margin: 20px auto;
+            width: 400px; /* adjust to fit your image */
+            height: 200px; /* adjust to fit your image */
+            background: url('https://drive.google.com/uc?export=view&id=1PjpGJvXc1GEjDxMKYRxrG_70Osi805PO') no-repeat center;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Guess the Digits of Pi</h1>
+        <p id="sequence"></p>
+        <div id="pusheen"></div>
+        <input id="digit-input" type="text" maxlength="1" oninput="submitDigit()" placeholder="Enter the next digit">
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        var pi = "3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141273724587006606315588174881520920962829254091715364367892590360011330530548820466521384146951941511609433057270365759591953092186117381932611793105118548074462379962749567351885752724891227938183011949129833673362440656643086021394946395224737190702179860943702770539217176293176752384674818467669405132000568127145263560827785771342757789609173637178721468440901224953430146549585371050792279689258923";
+        var currentIndex = 0;
+
+        function submitDigit() {
+            var digitInput = document.getElementById('digit-input');
+            var nextDigit = digitInput.value;
+            digitInput.value = '';
+            if (nextDigit === pi.charAt(currentIndex)) {
+                var digitSpan = document.createElement('span');
+                digitSpan.classList.add('digit');
+                digitSpan.innerText = nextDigit;
+                document.getElementById('sequence').appendChild(digitSpan);
+                document.getElementById('result').innerText = 'Correct!';
+                currentIndex++;
+            } else {
+                document.getElementById('result').innerText = 'Incorrect. Try again.';
+            }
+        }
+    </script>
+</body>
+</html>
