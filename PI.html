@@ -44,13 +44,27 @@
             from { transform: translateX(100%); }
             to { transform: translateX(0); }
         }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
         #pusheen {
             display: block;
             margin: 20px auto;
             width: 400px; 
             height: 200px; 
-            background: url('https://drive.google.com/uc?export=view&id=1PjpGJvXc1GEjDxMKYRxrG_70Osi805PO') no-repeat center;
+            background: url('/Users/estherbeatrice/Downloads/Untitled_Artwork 85 (1).png') no-repeat center;
             background-size: contain;
+        }
+        .fade {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
         }
     </style>
 </head>
@@ -60,7 +74,7 @@
         <p id="sequence"></p>
         <div id="pusheen"></div>
         <input id="digit-input" type="text" maxlength="1" oninput="submitDigit()" placeholder="Enter the next digit">
-        <div id="result"></div>
+        <div id="result" class="fade"></div>
     </div>
     
     <script>
@@ -71,16 +85,20 @@
             var digitInput = document.getElementById('digit-input');
             var nextDigit = digitInput.value;
             digitInput.value = '';
+            var resultElement = document.getElementById('result');
             if (nextDigit === pi.charAt(currentIndex)) {
                 var digitSpan = document.createElement('span');
                 digitSpan.classList.add('digit');
                 digitSpan.innerText = nextDigit;
                 document.getElementById('sequence').appendChild(digitSpan);
-                document.getElementById('result').innerText = 'Correct!';
+                resultElement.innerText = 'Correct!';
                 currentIndex++;
             } else {
-                document.getElementById('result').innerText = 'Incorrect. Try again.';
+                resultElement.innerText = 'Incorrect. Try again.';
             }
+            resultElement.classList.remove('fade');
+            void resultElement.offsetWidth; 
+            resultElement.classList.add('fade');
         }
     </script>
 </body>
